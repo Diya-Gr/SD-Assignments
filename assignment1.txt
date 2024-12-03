@@ -1,0 +1,88 @@
+//1
+create database shopping_cart;
+use shopping_cart;
+create table orders (
+  order_id INT, 
+  product_id INT,
+  quantity INT
+  );
+create table inventory(
+  order_id INT, 
+  product_id INT,
+  quantity INT
+  );
+insert orders(order_id , product_id , quantity)  
+values(201 , 105 , 2);
+
+-- insert inventory(order_id , product_id , quantity)
+-- values(206,110,0);
+
+start transaction;
+
+update inventory
+set quantity = quantity - 2
+where product_id = 999;
+
+rollback;
+
+
+
+//2
+create database school;
+use school;
+create table student(
+   student_id INT Primary key,
+   name Varchar(50),
+   age INT,
+   grade Varchar(50)
+);
+
+insert into student(student_id , name, age, grade)
+values 
+(110,'get',12,'A'), 
+(101,'geet',12,'A'),
+(102,'joh smith',18,'B'),
+(103,'ruby',19,'A'),
+(104,'harsh',14,'B'),
+(105,'kirti',16,'C');
+
+show columns from student;
+SELECT * FROM school.student;
+select student_id , name , age , grade from student where age > 15;
+
+update student 
+set name = 'john doe'
+where student_id = 102;
+
+update student 
+set grade = 'A'
+where student_id = 102;
+
+delete from student 
+where grade = 'C' ;
+
+
+
+//3
+create database library;
+use library;
+create table book(
+   book_id INT primary key,
+   author Varchar(100),
+   title Varchar(50),
+   publish_year INT
+);
+
+alter table book 
+add ISBN Varchar(100);
+
+alter table book 
+drop column publish_year;
+
+insert into book(book_id , author, title)
+values
+(11, 'user1','ikigai') , 
+(12 , 'user2','mind-games'),
+(13, 'user3','karma');
+grant select , insert on book to "diya";
+revoke select , insert on book to "diya";
